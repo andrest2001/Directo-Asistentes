@@ -13,13 +13,30 @@
             <button @click="delAsist">Añadir asistente</button>
         </div>
     </div>
-    <cite>{{ mensaje }}</cite>
+    <cite v-if="mostrar==true">{{ mensaje }}</cite>
   </section>
 </template>
 
 <script>
 export default {
-    name:'AsistentesDirecto'
+    name:'AsistentesDirecto',
+    data(){
+        return{
+            nombre_asistente:'',
+            mensaje:'',
+            mostrar:false,
+            encontrado: false,
+            asistentes:['ShShoan', 'Fortu']
+        }
+    
+    },
+    methods:{
+        addAsist(){
+            this.asistentes.push(this.nombre_asistente) //Introduzco el nombre en el array
+            this.nombre_asistente = ''//reseteo el input
+            localStorage.setItem('Asistentes', JSON.stringify(this.asistentes))
+        }
+    }
 }
 </script>
 
