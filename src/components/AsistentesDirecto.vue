@@ -3,12 +3,12 @@
     <div id="asistentes">
         <h1>Asistentes a la sesion en directo</h1>
         <ul>
-            <li v-for="asistente in asistentes.slice().reverse()" :key="asistente">{{ asistente }}</li>
+            <li v-for="asistente in $store.state.asistentes.slice().reverse()" :key="asistente">{{ asistente }}</li>
         </ul>
     </div>
     <div id="caja-form">
         <div id="add">
-            <input type="text" placeholder="Nombre del asistente" v-model="nombre_asistente">
+            <input type="text" placeholder="Nombre del asistente" v-model="$store.state.nombre_asistente">
             <button @click="addAsist">Añadir asistente</button>
             <button @click="delAsist">Eliminar asistente</button>
         </div>
@@ -21,26 +21,9 @@
 <script>
 export default {
     name:'AsistentesDirecto',
-    data(){
-        return{
-            nombre_asistente:'',
-            mensaje:'',
-            mostrar:false,
-            encontrado: false,
-            asistentes:['ShShoan', 'Fortu']
-        }
-    
-    },
     methods:{
         addAsist(){
-            if(this.nombre_asistente === ''){
-                this.mostrar = true
-                this.mensaje = "Debes introducir el nombre del asistente que quieres eliminar"
-            }else{
-                this.asistentes.push(this.nombre_asistente) //Introduzco el nombre en el array
-                this.nombre_asistente = ''//reseteo el input
-                localStorage.setItem('Asistentes', JSON.stringify(this.asistentes))
-            }
+            this.$store.dispatch('accionAddAsist')
         },
         delAsist(){
             if(this.nombre_asistente === ''){
