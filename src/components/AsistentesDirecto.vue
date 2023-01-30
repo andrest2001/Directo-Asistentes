@@ -26,30 +26,7 @@ export default {
             this.$store.dispatch('accionAddAsist')
         },
         delAsist(){
-            if(this.nombre_asistente === ''){
-                this.mostrar = true
-                this.mensaje = "Debes introducir el nombre del asistente que quieres eliminar"
-            }else{
-                for(let i = 0; i < this.asistentes.length; i++){
-                    if(this.nombre_asistente===this.asistentes[i]){
-                        this.encontrado = true
-                        this.mostrar = false
-
-                        //eliminamos el elemento del array y del loca storage
-                        let indice = this.asistentes.indexOf(this.nombre_asistente)
-                        this.asistentes.splice(indice, 1)
-                        //actualizamos el local storage
-                        localStorage.setItem('Asitentes', JSON.stringify(this.asistentes))
-                    }
-                }
-                if(this.encontrado === true){
-                    this.mostrar = false
-                }else{
-                    this.mostrar = true
-                    this.mensaje = "NO"
-                }
-            }
-            this.nombre_asistente=''
+            this.$store.dispatch('accionDelAsist')
         }
     },
 
